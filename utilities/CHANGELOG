@@ -1,0 +1,168 @@
+== 0.9.69-->1.0.94 ==
+New Features:
+--------------------------
+The advanced search has ability to searching Rhymes and Radifs. (Rhyme-meter and Radif-meter).
+Ability to bookmark/unbookmark verses.
+Ability to filter bookmarks by its title and comment.
+Ability to import bookmarks from database.(Desktop Ganjoor's Bookmarks)
+Now, Saaghar has Undo/Redo support.
+For better performance and perfect highlighting support, the paragraph containers and the poet's description container changed from 'QTableWidgetItem' to 'QTextEdit'.
+Added 'ParagraphHighlighter' class for highlighting paragraphs and poet's description.
+Ability to disabling 'Splash-Screen'.
+
+Improved Features:
+--------------------------
+Removing border of search-page's navigator button.
+The '.pro' file was improved for supporting custom PREFIX on linux OSes.
+Added 'placeholderText' for 'SearchResultWidget::filterLineEdit'.
+The 'scrollToFirstItemContains()' was improved, for jumping to the right beyt.
+Added two convenient global variable: SaagharWidget::currentLocationList, SaagharWidget::currentPoemTitle.
+Now, scrollToFirstItemContains() returns matched item.
+Now, 'SaagharWidget::identifier()' returns 'QStringList' as replace of 'QString'.
+Now, 'parentCatClicked()' and 'showHome()' and 'nextPoem()' and 'previousPoem()' use 'processClickedItem()'.
+The 'updateTabsSubMenus()' changed as a SLOT. and connected to 'captionChanged()' SIGNAL.
+The 'namedActionTriggered(bool checked)' changed to 'namedActionTriggered(bool checked = false)'
+On Windows and Mac default database path changed, but old path are supported.
+Now, a new tab and a refreshed tab know about highlight phrase, and are highlighted.
+Declaring of 'lineEditSearchText' moved to 'SaagharWidget' as a static variable.
+Initializing of 'isPortable' and calling 'loadGlobalSettings()' moved to the first of constructor and 'restoreGeometry()' and 'restoreState()' moved to the end of constructor.
+
+Fixed Bugs:
+--------------------------
+The FSF address for GPL license was updated.
+Removed user specific steps from '.pro' file.
+The height computation bug was fixed, using column's width in replace of viewport's width.
+The 'cleanString()' deletes spaces if it's needed.
+The 'scrollToFirstItemContains()' was fixed when using non-list mode, just apply cleanString() to 'keyword'!
+Now search filter skips charachters with 'QChar::DirNSM' unicode direction, by using 'cleanString()' function.
+For new paragraph widget copy and select problems were fixed.
+A bug fixed in 'scrollToFirstItemContains()', 'cleanString()' moved to its correct position.
+The computation of width of 'numItem' was corrected.
+When deleting last empty row, if row has a widget it should not be deleted.
+
+== 0.8.21-->0.9.69 ==
+New Features:
+--------------------------
+New: An advanced search method was implemented.
+New: The menubar is movable!(Windows and Linuxes without Unity Desktop)
+New: Added preview of fonts.
+New: Paged search results!
+New: Every image formats supported by Qt can be selected as background photo!
+New: Added ability to filtering search results(it's  realtime!).
+New: The search field widget has a better look and feel! It has an embeded progressbar!
+New: The current search result's page number and search result's pages count were added to 'SearchResultWidget'!
+New: User can search more than one poet for search range.
+New: The behavior of Random & Faal buttons are customizable.
+New: There is an option for disabling poet's photo in home page.
+New: Now, for better look, mouse click doesn't select the row.
+New: Auto Vertical layout for 'searchToolBar'!
+New: The ability to hide/show every toolbars.
+New: The ability to change button style and icon size of 'mainToolBar'.
+New: The ability to lock toolbars!
+New: Added list of opened and recently closed tabs!
+New: Added an shortcut menu to the corner of tab widget!
+New: The highlighter supports a list of words for highlighting!
+New: The 'qStringMacHelper()' was added, and it acts on database stuffs.
+New: Added a transparent splash-screen!
+New: Added the new command-line option '-fresh' for starting a fresh instance, for example, it's needed when 'new window' action is clicked.
+New: Added 'Ganjoor Verification' action.
+New: Added some backgrounds and 'splash' image.
+
+Improved Features:
+--------------------------
+Improved: The view of parent buttons are improved.
+Improved: Pages are auto-refreshed when needed.
+Improved: Now, the highlighter highlights whole of a word that contains TATWEEL!
+Improved: Better search for words that contain ZWNJ!
+Improved: Added text justification for MacOSX by using SPACE in replace of TATWEEL, forcely!
+Improved: The 'QWidget::setUpdatesEnabled()' added in some places with big visual effects!
+Improved: The display of search result was improved, the results are snipped.
+Improved: The category names are snipped, now.
+Improved: The way that settings dialog works, was changed!(internal)
+Improved: There is a better and normalized "Tab's Caption" and complete and long "Window's Title"
+Improved: The search result widget is improved and moved to the new 'SearchResultWidget' class.
+Improved: New method for writing and reading settings.(internal)
+Improved: All icons are customizable.
+Improved: Now, QGanjoorDbBrowser::cleanString() works better, 'skipNonAlphabet' flag was removed!
+Improved: A simpler method for action connection.(internal)
+Improved: Calling 'SaagharWidget::resizeTable()' on resizing of 'QTableWidget::viewport()'! By this fix resizing of search results pages are handeled!
+Improved: Replacing ZWNJ by RLM+ZWNJ+RLM for Qt bug about ZWNJ on MacOSX!
+Improved: Now, the highlighter highlights by rounded rectangles!
+Improved: The 'computeRowHeight()' improved by an empirical value! numOfRows = (5/4)*numOfRows
+Improved: Unnecessary database queries from 'resizeTable()' were removed.
+Improved: A temporary and tricky way for some problems with database!!(i.e.: defined second Mesra when there is no a defined first Mesra)
+improved: The 'new search method' was removed and merged to the 'advanced search algorithm'.
+Improved: A new icon for better look when background is dark.
+
+Fixed Bugs:
+--------------------------
+Fixed: There was a query bug when selecting a poet while searching! 'text' changed to 'verse.text'!
+Fixed: The 'Qt::WA_OpaquePaintEvent' attribute creates a bug on linux. The margin of 'QScrollBar' was not repainted correctly.
+Fixed: The bug about calculation of row's height for description and poem's title was fixed.
+Fixed: The 'select-mask.png' was corrected.
+Fixed: Clearing height's memory at start of 'showPoem()'! fixing the bug about computing second row's height.
+Fixed: 'SaagharWidget::scrollToFirstItemContains' was fixed for advanced search method.
+Fixed: Tabs opened from search-page were not connected to 'searchDelegate'.
+Fixed: The bug about highlighting search results on Linux with default style was fixed! replaced 'QStyledItemDelegate' by 'QItemDelegate'!
+Fixed: The highlighter supports highlighting items with icon.(e.g.: home's item)
+Fixed: The original(not cleaned) version of verses are shown on search results page!
+Fixed: Fixed a bug about searching selected poets.
+Fixed: Some fixes about translation part.
+Fixed: The old action 'labelMaxResultAction' was removed.
+Fixed: Some small bugs were fixed.
+
+== 0.8.13-->0.8.21 ==
+New Features:
+New: The Mesras are 'Justified', now,
+New: The Full Screen View was added,
+New: The ability to check for updates, was added.
+
+Improved Features:
+Improved: The Poet's description is shown just in his/her first page,
+Improved: The computation of height of poet's description, was improved in several ways.
+
+Fixed Bugs:
+Fixed: The bug that cause application hangs when searching for some phrases was fixed,
+Fixed: The bug created because of 'taking address of temporary' was fixed,
+Fixed: The height of poet's description was not computed in SaagharWidget::resizeTable(), it was fixed now,
+Fixed: The description of poets with one category was skipped, now it's displayed,
+Fixed: qmake .pro file was corrected, wildcards in '.pro' is not supported on MAC OS X,
+Fixed: The geometry of screen is saved,
+Fixed: A few bugs were fixed.
+
+== 0.7.2-->0.8.13 ==
+New Features:
+Added a new powerfull search method, (not completed, it's a demo)
+The 'Main ToolBar' is fully customizable.
+Mouse cursor changes on clickable items, and item is highlighted.
+Saaghar supports importing of new sets of poem.
+Saaghar interface is translated to Persian.
+Added 'Random' button.
+Added ability to select a new Database path.
+If database is not opened, there is a choice for select a new path.
+Added 'Remove Poet' action for removing a poet and all his/her books from database.
+The Ctrl+W shortcut closes current Tab.
+Adding support for minGW compiler on Windows.
+Added the ability of loading fonts on application startup from a special 'fonts' folder.
+
+Improved Features:
+Row height of 'Paragraph' and 'Single' items are adjusted on resizing.
+After application start, the computation of table's width is correct.
+Match highlighter when searching  is completely real-time.
+Random algorithm was improved.
+Changing 'Search dockWidget' to a 'toolBar'.
+Added poet's name to search Tab's title.
+Because of unknown licenses some icons have changed and also the colors of some icons are modified.
+Show a default photo for poets without photo.
+Saaghar has a better TeX output.
+'Description' added to GanjoorPoet object.
+Warning when importing to a database that isn't writable.
+
+Fixed Bugs:
+The spacer column doesn't span now. (some versions of Qt can't render item-view properly when spans cross each other)
+Fixed MainWindow::getSaagharWidget(int)'s bug that occurs when deleting current Tab.
+Some shortcuts are corrected.
+Fixed some little bug.
+
+== Version 0.7.2 ==
+ * Initial version. 21 DEC 2010
