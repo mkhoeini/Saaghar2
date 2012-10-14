@@ -1,12 +1,5 @@
-cmake_minimum_required(VERSION 2.8.7)
-project(saaghar)
 
-find_package(Qt4 REQUIRED QtCore QtGui QtSql QtXml QtNetwork)
-include(${QT_USE_FILE})
-
-add_subdirectory(pQjWidgets)
-add_subdirectory(translations)
-
+include_directories(${CMAKE_BINARY_DIR})
 include_directories(
 	${CMAKE_SOURCE_DIR}/pQjWidgets/QExtendedSplashScreen
 	${CMAKE_SOURCE_DIR}/pQjWidgets/QMultiSelectWidget
@@ -48,12 +41,15 @@ set(saaghar_FORMS
 set(saaghar_RCCS
 	saaghar.qrc)
 
+set(saaghar_TRANS
+	saaghar_fa.ts)
+
 
 qt4_wrap_cpp(saaghar_HDRS_files ${saaghar_HDRS})
 qt4_wrap_ui(saaghar_FORMS_files ${saaghar_FORMS})
 qt4_add_resources(saaghar_RCCS_files ${saaghar_RCCS})
+qt4_add_translation(saaghar_TRANS_files ${saaghar_TRANS})
 
-include_directories(${CMAKE_BINARY_DIR})
 
 add_executable(saaghar
         ${saaghar_SRCS}
@@ -62,3 +58,5 @@ add_executable(saaghar
 	${saaghar_RCCS_files}
 	${saaghar_TRANS_files})
 target_link_libraries(saaghar ${QT_LIBRARIES} pQjWidgets)
+
+
