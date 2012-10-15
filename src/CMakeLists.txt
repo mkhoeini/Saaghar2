@@ -18,10 +18,6 @@ set(saaghar_HDRS
 	SearchResultWidget.h
 	SearchPatternManager.h
         bookmarks.h)
-# These files have been excluded due to the point that they don't have Q_OBJECT macro:
-        #commands.h)
-        #QGanjoorDbStuff.h
-        #version.h
 
 set(saaghar_SRCS
 	main.cpp
@@ -42,20 +38,23 @@ set(saaghar_FORMS
 set(saaghar_RCCS
 	../saaghar.qrc)
 
+set(saaghar_TRANS
+	../ts/saaghar_fa.ts)
 
 
 qt4_wrap_cpp(saaghar_HDRS_files ${saaghar_HDRS})
 qt4_wrap_ui(saaghar_FORMS_files ${saaghar_FORMS})
 qt4_add_resources(saaghar_RCCS_files ${saaghar_RCCS})
-#qt4_add_translation(saaghar_TRANS_files ${saaghar_TRANS})
+qt4_add_translation(saaghar_TRANS_files ${saaghar_TRANS})
 
 
 add_executable(saaghar
         ${saaghar_SRCS}
         ${saaghar_HDRS_files}
 	${saaghar_FORMS_files}
-	${saaghar_RCCS_files})
-	#${saaghar_TRANS_files})
+	${saaghar_RCCS_files}
+	${saaghar_TRANS_files})
+
 target_link_libraries(saaghar ${QT_LIBRARIES} pQjWidgets)
 
 
