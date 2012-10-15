@@ -1,5 +1,6 @@
 
 include_directories(${CMAKE_BINARY_DIR})
+include_directories(${CMAKE_BINARY_DIR}/src)
 include_directories(
 	${CMAKE_SOURCE_DIR}/pQjWidgets/QExtendedSplashScreen
 	${CMAKE_SOURCE_DIR}/pQjWidgets/QMultiSelectWidget
@@ -39,24 +40,22 @@ set(saaghar_FORMS
 	settings.ui)
 
 set(saaghar_RCCS
-	saaghar.qrc)
+	../saaghar.qrc)
 
-set(saaghar_TRANS
-	saaghar_fa.ts)
 
 
 qt4_wrap_cpp(saaghar_HDRS_files ${saaghar_HDRS})
 qt4_wrap_ui(saaghar_FORMS_files ${saaghar_FORMS})
 qt4_add_resources(saaghar_RCCS_files ${saaghar_RCCS})
-qt4_add_translation(saaghar_TRANS_files ${saaghar_TRANS})
+#qt4_add_translation(saaghar_TRANS_files ${saaghar_TRANS})
 
 
 add_executable(saaghar
         ${saaghar_SRCS}
         ${saaghar_HDRS_files}
 	${saaghar_FORMS_files}
-	${saaghar_RCCS_files}
-	${saaghar_TRANS_files})
+	${saaghar_RCCS_files})
+	#${saaghar_TRANS_files})
 target_link_libraries(saaghar ${QT_LIBRARIES} pQjWidgets)
 
 
