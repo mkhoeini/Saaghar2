@@ -5,7 +5,7 @@ find_package(Qt4 REQUIRED QtCore QtGui QtSql QtXml QtNetwork)
 include(${QT_USE_FILE})
 
 add_subdirectory(pQjWidgets)
-add_subdirectory(translations)
+#add_subdirectory(translations)
 
 include_directories(
 	${CMAKE_SOURCE_DIR}/pQjWidgets/QExtendedSplashScreen
