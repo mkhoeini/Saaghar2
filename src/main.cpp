@@ -21,7 +21,7 @@
 
 #include <QTranslator>
 #include <QtGui/QApplication>
-//#include<QMessageBox>
+#include <QLatin1String>
 
 #include <QExtendedSplashScreen>
 #include "mainwindow.h"
@@ -33,28 +33,59 @@
 #endif
 #endif
 
+
+/* A dummy class to cover for splash screen */
+/*
+class QExtendedSplashScreen : public QObject
+{
+	Q_OBJECT
+
+public:
+	QExtendedSplashScreen(const QPixmap&, Qt::WindowFlags) {}
+	QExtendedSplashScreen(QWidget*, const QPixmap&, Qt::WindowFlags) {}
+	virtual ~QExtendedSplashScreen() {}
+
+	const QPixmap pixmap() const {}
+	void setPixmap(const QPixmap&) {}
+	void finish(QWidget*) {}
+	void repaint() {}
+	void forceRepaint() {}//after repaint calls 'processEvent()'
+
+public slots:
+	void showMessage(const QString&, int, const QColor&) {}
+	void showMessage(const QString&) {} //uses last setted alignment and color
+	void setMessageOptions(QRect, int, const QColor&) {}
+	void clearMessage();
+
+signals:
+	void messageChanged(const QString &);
+};
+*/
 int main(int argc, char *argv[])
 {
-	QApplication a(argc, argv);
+	QApplication app(argc, argv);
 
 	bool fresh = false;
 	if (QCoreApplication::arguments().contains("-fresh", Qt::CaseInsensitive))
 		fresh = true;
 
-	QTranslator* appTranslator=new QTranslator();
-	QTranslator* basicTranslator=new QTranslator();
+	QTranslator translator;
 
-	QStringList translationDirs = QStringList() << "/usr/share/saaghar" << QCoreApplication::applicationDirPath() + "/../Resources" << QCoreApplication::applicationDirPath();
+	QStringList translationDirs;
+        translationDirs << "/usr/share/saaghar" 
+                << QCoreApplication::applicationDirPath() + "/../Resources" 
+                << QCoreApplication::applicationDirPath()
+                << ":/ts/";
 
-	for (int i=0; i<translationDirs.size(); ++i)
+	foreach (QString dir, translationDirs)
 	{
-		QString translationDir = translationDirs.at(i);
-		if (appTranslator->load(QString("saaghar_fa"), translationDir))
+		if (translator.load(QLocale::system(), QLatin1String("saaghar"), dir))
 		{
-			QCoreApplication::installTranslator(appTranslator);
-			if (basicTranslator->load(QString("qt_fa"), translationDir))
-				QCoreApplication::installTranslator(basicTranslator);
-			break;
+			app.installTranslator(&translator);
+		}
+		if (translator.load(QLocale::system(), QLatin1String("qt"), dir))
+		{
+			app.installTranslator(&translator);
 		}
 	}
 
@@ -71,5 +102,5 @@ int main(int argc, char *argv[])
 	splash.finish(&w);
 //	w.emitReSizeEvent();//maybe a Qt BUG//before 'QMainWindow::show()' the computation of width of QMainWindow is not correct!
 
-	return a.exec();
+	return app.exec();
 }
